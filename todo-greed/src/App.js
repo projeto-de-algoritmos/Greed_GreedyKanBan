@@ -91,11 +91,11 @@ function App() {
                         ref={provided.innerRef}
                         style={{
                           background: snapshot.isDraggingOver
-                            ? '#fb6b4c'
-                            : '#fd7d62',
+                            ? '#D3D3D3'
+                            : '#C0C0C0',
                           padding: 4,
                           width: 250,
-                          minHeight: 500,
+                          minHeight: 400,
                         }}
                       >
                         {column.items.map((item, index) => {
