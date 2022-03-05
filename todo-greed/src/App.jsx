@@ -92,9 +92,10 @@ function App() {
                           background: snapshot.isDraggingOver
                             ? '#D3D3D3'
                             : '#C0C0C0',
-                          padding: 4,
+                          padding: 8,
                           width: 250,
-                          minHeight: 400,
+                          minHeight: 380,
+                          borderRadius: '7px'
                         }}
                       >
                         {column?.items?.length > 0 &&

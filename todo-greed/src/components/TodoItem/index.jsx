@@ -17,6 +17,7 @@ const TodoItem = ({ data, index }) => {
               minHeight: '40px',
               backgroundColor: snapshot.isDragging ? '#2b8b42' : '#157a2d',
               color: 'white',
+              borderRadius: '7px',
               ...provided.draggableProps.style,
             }}
           >

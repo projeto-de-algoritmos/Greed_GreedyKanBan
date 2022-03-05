@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar/navbar';
+import Cronometer from './components/Cronometer/cron';
 
 ReactDOM.render(
   <React.StrictMode>
     <Navbar />
+    <Cronometer />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
