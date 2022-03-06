@@ -10,28 +10,10 @@ import { v4 as uuid } from 'uuid';
 import { sortTasks } from './utils/sortTasks';
 import { intervalScheduling } from './utils/intervalScheduling';
 import moment from 'moment';
+import Cronometer from './components/Cronometer/cron';
 function App() {
   const tasks = useMemo(
     () => [
-      {
-        id: uuid(),
-        content: '11',
-        startTime: '10:00 AM',
-        endTime: '11:00 AM',
-      },
-      {
-        id: uuid(),
-        content: '09',
-        description: '08',
-        startTime: '08:00 AM',
-        endTime: '09:00 AM',
-      },
-      {
-        id: uuid(),
-        content: '13',
-        startTime: '12:00 PM',
-        endTime: '13:00 PM',
-      },
     ],
     []
   );
@@ -130,7 +112,7 @@ function App() {
                             return <TodoItem data={item} index={index} />;
                           })}
                         {provided.placeholder}
-                        <form onSubmit={handleSubmit} id={bIndex}>
+                        <form onSubmit={handleSubmit} id={bIndex} style = {{padding: '0.5rem'}}>
                           <TextField
                             name="description"
                             label="Description"
@@ -138,7 +120,7 @@ function App() {
                             required
                           />
                           <Box>
-                            <Typography id="input-slider">
+                            <Typography id="input-slider" style = {{paddingLeft: '1.2rem'}}>
                               Duration(h)
                             </Typography>
                             <Slider
@@ -169,9 +151,10 @@ function App() {
                         </form>
                         <Button
                           onClick={() => {
-                            columns[3].items = intervalScheduling(allTasks);
+                            columns[1].items = intervalScheduling(allTasks);
 
                             setColumns([...columns]);
+                            //document.querySelector(Cronometer).click();
                           }}
                           variant="contained"
                           fullWidth
