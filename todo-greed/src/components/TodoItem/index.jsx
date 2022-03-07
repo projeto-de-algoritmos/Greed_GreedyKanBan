@@ -14,7 +14,7 @@ const TodoItem = ({ data, index }) => {
               backgroundImage:
                 'linear-gradient( 132.6deg,  rgba(71,139,214,1) 23.3%, rgba(37,216,211,1) 84.7% )',
             }}
-            marginBottom="2rem"
+            marginBottom="0.5rem"
           >
             <Box
               style={{

@@ -11,14 +11,11 @@ import { intervalScheduling } from './utils/intervalScheduling';
 import moment from 'moment';
 import Cronometer from './components/Cronometer/cron.jsx';
 
-function App() {
-  const tasks = useMemo(() => [], []);
-
-  const tasksColumns = useMemo(
-    () => [
+const tasksColumns = 
+  [
       {
         name: 'Tasks',
-        items: tasks,
+        items: [],
       },
       {
         name: 'To do',
@@ -32,12 +29,13 @@ function App() {
         name: 'Done',
         items: [],
       },
-    ],
-    [tasks]
-  );
+    ]
+
+function App() {
   const [columns, setColumns] = useState(tasksColumns);
   const [value, setValue] = useState(new Date('2021-03-05T08:00:00'));
   const [time, setTime] = useState(0);
+  const [interval, setIntervalState] = useState(null);
   const handleChangeTime = (newValue) => {
     setValue(newValue);
   };
@@ -78,11 +76,14 @@ function App() {
   };
 
   const startTimer = () => {
-    setTime(time);
     let newTime = time;
-    setInterval(() => setTime((newTime += 1800)), 1000);
+    setIntervalState(setInterval(() => setTime((newTime += 1800)), 1000));
   };
 
+  const stopTimer = () => {
+    setTime(0);
+    clearInterval(interval);
+  };
   useEffect(() => {
     console.log(columns);
     let startItem = columns?.[1].items?.find((data) =>
@@ -125,8 +126,16 @@ function App() {
     <Box>
       <Flex width="100%" justifyContent="center">
         <Cronometer time={time} />
-        <Button variant="contained" onClick={() => startTimer()}>
+        <Button variant="contained" onClick={() => startTimer()}
+                style={{marginLeft: '0.5rem', background: '#32CD32'}}
+        >
           Start Timer
+        </Button>
+        <Button variant="contained" onClick={() => {setColumns(tasksColumns) 
+                                                    stopTimer()}}
+                style={{marginLeft: '0.5rem', background: '#FF6347'}}
+        >
+          Reset Tasks
         </Button>
       </Flex>
       <Flex justifyContent="center" height="100%">
@@ -226,7 +235,8 @@ function App() {
                                     }}
                                     variant="contained"
                                     fullWidth
-                                    color="secondary"
+                                    //color="secondary"
+                                    style={{background: '#000080'}}
                                   >
                                     Organize tasks
                                   </Button>
