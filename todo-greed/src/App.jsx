@@ -84,6 +84,7 @@ function App() {
   };
 
   useEffect(() => {
+    console.log(columns);
     let startItem = columns?.[1].items?.find((data) =>
       moment(
         moment().hour(0).minute(0).second(time).format('hh:mm A'),
@@ -124,7 +125,7 @@ function App() {
     <Box>
       <Flex width="100%" justifyContent="center">
         <Cronometer time={time} />
-        <Button type="submit" variant="contained" onClick={() => startTimer()}>
+        <Button variant="contained" onClick={() => startTimer()}>
           Start Timer
         </Button>
       </Flex>
@@ -147,10 +148,9 @@ function App() {
                               : '#C0C0C0',
                             padding: 8,
                             width: 250,
-                            minHeight: 380,
                             borderRadius: '7px',
                             overflowY: 'auto',
-                            maxHeight: 400,
+                            height: 400,
                           }}
                         >
                           {column?.items?.length > 0 &&
@@ -219,10 +219,9 @@ function App() {
                                   </Button>
                                   <Button
                                     onClick={() => {
-                                      columns[1].items = intervalScheduling(
-                                        columns[0].items
-                                      );
-
+                                      let column0Items = [...columns[0].items];
+                                      columns[1].items =
+                                        intervalScheduling(column0Items);
                                       setColumns([...columns]);
                                     }}
                                     variant="contained"
