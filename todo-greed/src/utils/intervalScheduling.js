@@ -9,8 +9,8 @@ export const intervalScheduling = (tasks) => {
 
   for (let i = 1; i < tasks.length; i++) {
     if (
-      moment(lastTaskAdded.endTime, 'h:mm a').isSameOrBefore(
-        moment(tasks[i].startTime, 'h:mm a')
+      moment(lastTaskAdded.endTime, 'hh:mm A').isSameOrBefore(
+        moment(tasks[i].startTime, 'hh:mm A')
       )
     ) {
       selectedTasks.push(tasks[i]);

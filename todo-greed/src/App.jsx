@@ -64,9 +64,9 @@ function App() {
     const description = e.target.elements.description.value;
     const startTime = e.target.elements.startTime.value;
     const duration = e.target.elements.duration.value;
-    let endTime = moment(startTime, 'h:mm a')
+    let endTime = moment(startTime, 'h:mm A')
       .add(duration, 'hours')
-      .format('h:mm a');
+      .format('hh:mm A');
     const item = {
       id: uuid(),
       content: description,
@@ -82,20 +82,49 @@ function App() {
     setIsStarted(true);
     setTime(time);
     let newTime = time;
-    setInterval(() => setTime((newTime += 3600)), 1000);
+    setInterval(() => setTime((newTime += 1800)), 1000);
   };
 
   useEffect(() => {
-    console.log(columns?.[1]?.items?.[0]);
-    console.log(
-      moment().hour(0).minute(0).second(time).format('hh:mm a') ===
-        moment(columns?.[1].items[0]?.startTime, 'h:mm a').format('hh:mm a')
+    let startItem = columns?.[1].items?.find((data) =>
+      moment(
+        moment().hour(0).minute(0).second(time).format('hh:mm A'),
+        'hh:mm A'
+      ).isBetween(
+        moment(data?.startTime, 'hh:mm A'),
+        moment(data?.endTime, 'hh:mm A'),
+        null,
+        '[)'
+      )
     );
+
+    let endItem = columns?.[2].items?.find(
+      (data) =>
+        data.endTime ===
+        moment().hour(0).minute(0).second(time).format('hh:mm A')
+    );
+
+    if (startItem?.startTime) {
+      let newColumn1 = columns?.[1]?.items?.filter(
+        (data) => data.startTime !== startItem.startTime
+      );
+      columns?.[2].items?.push(startItem);
+      columns[1].items = newColumn1;
+      setColumns([...columns]);
+    }
+    if (endItem?.endTime) {
+      let newColumn2 = columns?.[2]?.items?.filter(
+        (data) => data.endTime !== endItem.endTime
+      );
+      columns?.[3].items?.push(endItem);
+      columns[2].items = newColumn2;
+      setColumns([...columns]);
+    }
   }, [columns, time]);
 
   return (
     <Box>
-      <Flex width="600px" width="100%" justifyContent="center">
+      <Flex width="100%" justifyContent="center">
         <Cronometer time={time} />
         <Button type="submit" variant="contained" onClick={() => startTimer()}>
           Start Timer
@@ -165,8 +194,8 @@ function App() {
                                 >
                                   <TimePicker
                                     label="Start Time"
-                                    ampm={false}
                                     value={value}
+                                    ampm
                                     onChange={handleChangeTime}
                                     renderInput={(params) => (
                                       <TextField {...params} name="startTime" />

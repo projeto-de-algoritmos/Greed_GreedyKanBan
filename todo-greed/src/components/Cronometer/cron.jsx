@@ -17,7 +17,7 @@ function Cronometer({ time }) {
         }}
       >
         <h1 style={{ textAlign: 'center', color: 'black', fontSize: '50px' }}>
-          {moment().hour(0).minute(0).second(time).format('HH : mm : ss')}
+          {moment().hour(0).minute(0).second(time).format('HH : mm : ss A')}
         </h1>
       </Flex>
     </Flex>
