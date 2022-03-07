@@ -11,25 +11,24 @@ import { intervalScheduling } from './utils/intervalScheduling';
 import moment from 'moment';
 import Cronometer from './components/Cronometer/cron.jsx';
 
-const tasksColumns = 
-  [
-      {
-        name: 'Tasks',
-        items: [],
-      },
-      {
-        name: 'To do',
-        items: [],
-      },
-      {
-        name: 'In Progress',
-        items: [],
-      },
-      {
-        name: 'Done',
-        items: [],
-      },
-    ]
+const tasksColumns = [
+  {
+    name: 'Tasks',
+    items: [],
+  },
+  {
+    name: 'To do',
+    items: [],
+  },
+  {
+    name: 'In Progress',
+    items: [],
+  },
+  {
+    name: 'Done',
+    items: [],
+  },
+];
 
 function App() {
   const [columns, setColumns] = useState(tasksColumns);
@@ -80,12 +79,29 @@ function App() {
     setIntervalState(setInterval(() => setTime((newTime += 1800)), 1000));
   };
 
-  const stopTimer = () => {
+  const resetTasks = () => {
     setTime(0);
     clearInterval(interval);
+    setColumns([
+      {
+        name: 'Tasks',
+        items: [],
+      },
+      {
+        name: 'To do',
+        items: [],
+      },
+      {
+        name: 'In Progress',
+        items: [],
+      },
+      {
+        name: 'Done',
+        items: [],
+      },
+    ]);
   };
   useEffect(() => {
-    console.log(columns);
     let startItem = columns?.[1].items?.find((data) =>
       moment(
         moment().hour(0).minute(0).second(time).format('hh:mm A'),
@@ -98,10 +114,15 @@ function App() {
       )
     );
 
-    let endItem = columns?.[2].items?.find(
-      (data) =>
-        data.endTime ===
-        moment().hour(0).minute(0).second(time).format('hh:mm A')
+    let endItem = columns?.[2].items?.find((data) =>
+      moment(
+        moment().hour(0).minute(0).second(time).format('hh:mm A'),
+        'hh:mm A'
+      ).isSameOrAfter(
+        moment(data?.endTime, 'hh:mm A'),
+        moment(data?.endTime, 'hh:mm A'),
+        null
+      )
     );
 
     if (startItem?.startTime) {
@@ -126,14 +147,19 @@ function App() {
     <Box>
       <Flex width="100%" justifyContent="center">
         <Cronometer time={time} />
-        <Button variant="contained" onClick={() => startTimer()}
-                style={{marginLeft: '0.5rem', background: '#32CD32'}}
+        <Button
+          variant="contained"
+          onClick={() => startTimer()}
+          style={{ marginLeft: '0.5rem', background: '#32CD32' }}
         >
           Start Timer
         </Button>
-        <Button variant="contained" onClick={() => {setColumns(tasksColumns) 
-                                                    stopTimer()}}
-                style={{marginLeft: '0.5rem', background: '#FF6347'}}
+        <Button
+          variant="contained"
+          onClick={() => {
+            resetTasks();
+          }}
+          style={{ marginLeft: '0.5rem', background: '#FF6347' }}
         >
           Reset Tasks
         </Button>
@@ -236,7 +262,7 @@ function App() {
                                     variant="contained"
                                     fullWidth
                                     //color="secondary"
-                                    style={{background: '#000080'}}
+                                    style={{ background: '#000080' }}
                                   >
                                     Organize tasks
                                   </Button>
