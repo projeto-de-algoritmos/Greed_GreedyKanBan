@@ -9,7 +9,6 @@ import Cronometer from './components/Cronometer/cron';
 ReactDOM.render(
   <React.StrictMode>
     <Navbar />
-    <Cronometer />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
