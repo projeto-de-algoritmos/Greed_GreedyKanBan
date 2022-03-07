@@ -10,21 +10,52 @@
 | 18/0125885  |  Lucas Melo dos Santos |
 
 ## Sobre 
-O Projeto Greedy KanBan gera uma demonstração visual de atividades em um quadro KanBan. As atividades são inseridas com uma duração e um deadline, e partir de algoritmo ambicioso, retorna a sequência de atividades mais otimizada. 
+O Projeto Greedy KanBan gera uma demonstração visual de atividades em um quadro KanBan. As atividades são inseridas com um horário de início, uma duração e, consequentemente, um horário de término. Com isso, utilizamos o algoritmo ambicioso **Interval Scheduling** para retornar a sequência de atividades mais otimizada. 
+
+A aplicação também gera uma animação com as tarefas e um cronômetro simulando o tempo. Dessa forma, as atidades vão progredindo, de acordo com sua duração, da coluna "To Do" até a coluna "Done" do Kanban. A animação é mostrada no vídeo de apresentação.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+## Tasks ordenadas
+![shot1](./screenshots/shot1.png)
+## Tasks ao longo do quadro Kanban pela animação
+![shot2](./screenshots/shot2.png)
+![shot3](./screenshots/shot3.png)
 
 ## Instalação 
 **Linguagem**: JavaScript<br>
 **Framework**: React JS<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
+**Pré-requisitos:**
+* ter instalado na máquina **yarn** ou **npm**.
+* Preferêncialmente rodar o projeto num ambiente Linux.
 
 ## Uso 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
+* Após clonar o repositório em sua máquina:
+
+```
+cd Greed_GreedyKanBan
+
+yarn install
+
+yarn start
+```
+ou 
+```
+cd Greed_GreedyKanBan
+
+npm install
+
+npm start
+```
+
+* Para cadastrar uma atividade, adicione uma descrição, horário de início e duração e clique no botão *insert Task*.
+* Para ordenar as atividades, clique em *organize tasks*.
+* Clique em *Start Time* para iniciar a animação e em *Reset Tasks* para resetar as atividades.
 
 ## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
+### **Importante** ⚠️
+A aplicação pode **NÃO** rodar em ambiente **Windows 10 ou 11**, pois algumas dependências não funcionam nesses ambientes. 
+
+A aplicação roda corretamente em ambientes Linux. 
 
 
 
