@@ -1,6 +1,4 @@
-import { Button } from '@mui/material';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
 import { Flex } from 'reflexbox';
 
 function Cronometer({ time }) {

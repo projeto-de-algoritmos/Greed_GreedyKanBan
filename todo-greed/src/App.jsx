@@ -36,9 +36,8 @@ function App() {
     [tasks]
   );
   const [columns, setColumns] = useState(tasksColumns);
-  const [value, setValue] = React.useState(new Date('2021-03-05T08:00:00'));
+  const [value, setValue] = useState(new Date('2021-03-05T08:00:00'));
   const [time, setTime] = useState(0);
-  const [isStarted, setIsStarted] = useState(null);
   const handleChangeTime = (newValue) => {
     setValue(newValue);
   };
@@ -79,7 +78,6 @@ function App() {
   };
 
   const startTimer = () => {
-    setIsStarted(true);
     setTime(time);
     let newTime = time;
     setInterval(() => setTime((newTime += 1800)), 1000);
@@ -151,6 +149,8 @@ function App() {
                             width: 250,
                             minHeight: 380,
                             borderRadius: '7px',
+                            overflowY: 'auto',
+                            maxHeight: 400,
                           }}
                         >
                           {column?.items?.length > 0 &&
@@ -165,64 +165,74 @@ function App() {
                                 id={bIndex}
                                 style={{ padding: '0.5rem' }}
                               >
-                                <TextField
-                                  name="description"
-                                  label="Description"
-                                  variant="outlined"
-                                  required
-                                />
-                                <Box>
-                                  <Typography
-                                    id="input-slider"
-                                    style={{ paddingLeft: '1.2rem' }}
-                                  >
-                                    Duration(h)
-                                  </Typography>
-                                  <Slider
-                                    name="duration"
-                                    aria-label="Temperature"
-                                    defaultValue={1}
-                                    valueLabelDisplay="on"
-                                    step={1}
-                                    marks
-                                    min={1}
-                                    max={6}
-                                  />
-                                </Box>
-                                <LocalizationProvider
-                                  dateAdapter={AdapterDateFns}
+                                <Flex
+                                  style={{ gap: '2rem' }}
+                                  flexDirection="column"
                                 >
-                                  <TimePicker
-                                    label="Start Time"
-                                    value={value}
-                                    ampm
-                                    onChange={handleChangeTime}
-                                    renderInput={(params) => (
-                                      <TextField {...params} name="startTime" />
-                                    )}
+                                  <TextField
+                                    name="description"
+                                    label="Description"
+                                    variant="outlined"
+                                    required
                                   />
-                                </LocalizationProvider>
-                                <Button
-                                  type="submit"
-                                  variant="contained"
-                                  fullWidth
-                                >
-                                  Insert task
-                                </Button>
-                              </form>
-                              <Button
-                                onClick={() => {
-                                  columns[1].items = intervalScheduling(
-                                    columns[0].items
-                                  );
 
-                                  setColumns([...columns]);
-                                }}
-                                variant="contained"
-                                fullWidth
-                              >
-                                sort task
-                              </Button>
+                                  <LocalizationProvider
+                                    dateAdapter={AdapterDateFns}
+                                  >
+                                    <TimePicker
+                                      label="Start Time"
+                                      value={value}
+                                      ampm
+                                      onChange={handleChangeTime}
+                                      renderInput={(params) => (
+                                        <TextField
+                                          {...params}
+                                          name="startTime"
+                                        />
+                                      )}
+                                    />
+                                  </LocalizationProvider>
+                                  <Box>
+                                    <Typography
+                                      id="input-slider"
+                                      style={{ paddingLeft: '1.2rem' }}
+                                    >
+                                      Duration(h)
+                                    </Typography>
+                                    <Slider
+                                      name="duration"
+                                      aria-label="Temperature"
+                                      defaultValue={1}
+                                      valueLabelDisplay="on"
+                                      step={1}
+                                      marks
+                                      min={1}
+                                      max={6}
+                                    />
+                                  </Box>
+                                  <Button
+                                    type="submit"
+                                    variant="contained"
+                                    fullWidth
+                                  >
+                                    Insert task
+                                  </Button>
+                                  <Button
+                                    onClick={() => {
+                                      columns[1].items = intervalScheduling(
+                                        columns[0].items
+                                      );
+
+                                      setColumns([...columns]);
+                                    }}
+                                    variant="contained"
+                                    fullWidth
+                                    color="secondary"
+                                  >
+                                    Organize tasks
+                                  </Button>
+                                </Flex>
+                              </form>
                             </Box>
                           )}
                         </div>

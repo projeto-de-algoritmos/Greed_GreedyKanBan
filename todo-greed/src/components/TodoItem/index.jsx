@@ -1,4 +1,6 @@
+import { Typography } from '@mui/material';
 import { Draggable } from 'react-beautiful-dnd';
+import { Flex } from 'reflexbox';
 import { Box } from 'reflexbox';
 
 const TodoItem = ({ data, index }) => {
@@ -7,21 +9,40 @@ const TodoItem = ({ data, index }) => {
       {(provided, snapshot) => {
         return (
           <Box
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
             style={{
-              userSelect: 'none',
-              padding: 16,
-              margin: '0 0 8px 0',
-              minHeight: '40px',
-              backgroundColor: snapshot.isDragging ? '#2b8b42' : '#157a2d',
-              color: 'white',
               borderRadius: '7px',
-              ...provided.draggableProps.style,
+              backgroundImage:
+                'linear-gradient( 132.6deg,  rgba(71,139,214,1) 23.3%, rgba(37,216,211,1) 84.7% )',
             }}
+            marginBottom="2rem"
           >
-            {data.content}
+            <Box
+              style={{
+                userSelect: 'none',
+                minHeight: '40px',
+                padding: '0.5rem',
+                color: 'white',
+                borderRadius: '7px',
+                ...provided.draggableProps.style,
+              }}
+            >
+              <Typography color="white" fontWeight="600">
+                {' '}
+                {data.content}
+              </Typography>
+            </Box>
+            <Flex
+              justifyContent="space-between"
+              padding="0.5rem 0.5rem 0 0.5rem"
+              style={{
+                borderBottomLeftRadius: '7px',
+                borderBottomRightRadius: '7px',
+                borderTop: '1px solid #a5ceca',
+              }}
+            >
+              <Typography color="white">{data.startTime}</Typography>-
+              <Typography color="white">{data.endTime}</Typography>
+            </Flex>
           </Box>
         );
       }}
